@@ -11,6 +11,8 @@
 		4FB50ACE28ABDF6A007D821C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FB50ACD28ABDF6A007D821C /* ContentView.swift */; };
 		4FB50AD028ABDF6B007D821C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4FB50ACF28ABDF6B007D821C /* Assets.xcassets */; };
 		4FB50AD328ABDF6B007D821C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4FB50AD228ABDF6B007D821C /* Preview Assets.xcassets */; };
+		4FB50ADB28ABE4CF007D821C /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FB50ADA28ABE4CF007D821C /* Card.swift */; };
+		4FB50ADE28ABE5B4007D821C /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FB50ADD28ABE5B4007D821C /* Home.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +21,8 @@
 		4FB50ACD28ABDF6A007D821C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		4FB50ACF28ABDF6B007D821C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4FB50AD228ABDF6B007D821C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		4FB50ADA28ABE4CF007D821C /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		4FB50ADD28ABE5B4007D821C /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +55,8 @@
 		4FB50ACA28ABDF6A007D821C /* AddPass */ = {
 			isa = PBXGroup;
 			children = (
+				4FB50ADC28ABE5A4007D821C /* View */,
+				4FB50AD928ABE4BB007D821C /* Model */,
 				4FB50ACB28ABDF6A007D821C /* AddPassApp.swift */,
 				4FB50ACD28ABDF6A007D821C /* ContentView.swift */,
 				4FB50ACF28ABDF6B007D821C /* Assets.xcassets */,
@@ -65,6 +71,22 @@
 				4FB50AD228ABDF6B007D821C /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		4FB50AD928ABE4BB007D821C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4FB50ADA28ABE4CF007D821C /* Card.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		4FB50ADC28ABE5A4007D821C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				4FB50ADD28ABE5B4007D821C /* Home.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,6 +160,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				4FB50ACE28ABDF6A007D821C /* ContentView.swift in Sources */,
+				4FB50ADB28ABE4CF007D821C /* Card.swift in Sources */,
+				4FB50ADE28ABE5B4007D821C /* Home.swift in Sources */,
 				4FB50ACC28ABDF6A007D821C /* AddPassApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
