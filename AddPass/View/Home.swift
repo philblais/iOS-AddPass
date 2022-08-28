@@ -11,6 +11,7 @@ struct Home: View {
     @State var expandCards: Bool = false
     @State var currentCard: Card?
     @State var showDetailCard: Bool = false
+    @Namespace var animation
     var body: some View {
         VStack(spacing: 0) {
             Text("Wallet")
@@ -37,7 +38,17 @@ struct Home: View {
             ScrollView(.vertical, showsIndicators: false) {
                 VStack(spacing: 0) {
                     ForEach(cards) { card in
-                        CardView(card: card).onTapGesture {
+                        Group{
+                            if currentCard?.id == card.id && showDetailCard {
+                                CardView(card: card).opacity(0)
+                            }
+                            else {
+                                CardView(card: card)
+                                    .matchedGeometryEffect(id: card.id, in: animation)
+                            }
+                        }
+                        
+                            .onTapGesture {
                             withAnimation(.easeInOut(duration: 0.35)){
                                 currentCard = card
                                 showDetailCard = true
@@ -77,7 +88,7 @@ struct Home: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .overlay {
             if let currentCard = currentCard, showDetailCard {
-                DetailView(currentCard: currentCard, showDetailCard: $showDetailCard)
+                DetailView(currentCard: currentCard, showDetailCard: $showDetailCard, animation: animation)
             }
         }
     }
@@ -109,7 +120,7 @@ struct Home: View {
             }
                     .offset(y: expandCards ? offset : -rect.minY + offset)
         }
-        .frame(width: .infinity, height: 235)
+        .frame(height: 235)
     }
 
     func getIndex(Card: Card) -> Int {
@@ -153,10 +164,49 @@ struct Home_Previews: PreviewProvider {
 struct DetailView: View {
     var currentCard: Card
     @Binding var showDetailCard: Bool
+    
+    var animation: Namespace.ID
+    
+    @State var showExpenseView: Bool = false
     var body: some View {
         VStack {
-            CardView().frame(height: 200)
-        }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+            CardView()
+                .matchedGeometryEffect(id: currentCard.id, in: animation)
+                .frame(height: 200)
+                .onTapGesture {
+                    withAnimation(.easeInOut){
+                        showExpenseView = false
+                    }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2){
+                        withAnimation(.easeInOut(duration: 0.35)){
+                            showDetailCard = false
+                        }
+                    }
+                }
+                .zIndex(10)
+            
+            GeometryReader {proxy in
+                let height = proxy.size.height + 50
+                ScrollView(.vertical, showsIndicators: false){
+                    VStack(spacing: 20){
+                        
+                    }.padding()
+                }
+                .frame(maxWidth:.infinity)
+                .background(Color.white.clipShape(RoundedRectangle(cornerRadius: 25, style: .continuous)).ignoresSafeArea()
+                )
+                .offset(y: showExpenseView ? 0 : height)
+            }
+            .padding([.horizontal, .top])
+            .zIndex(-10)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+        .background(Color("BG").ignoresSafeArea())
+        .onAppear{
+            withAnimation(.easeInOut.delay(0.1)){
+                showExpenseView = true
+            }
+        }
     }
     
     @ViewBuilder
@@ -176,10 +226,9 @@ struct DetailView: View {
                         .font(.callout)
                         .fontWeight(.bold)
             }
-                    .padding()
-                    .padding(.bottom, 10)
-                    .foregroundColor(.black)
-
+            .padding()
+            .padding(.bottom, 10)
+            .foregroundColor(.black)
         }
     }
 }
