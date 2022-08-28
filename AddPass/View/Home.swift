@@ -9,6 +9,8 @@ import SwiftUI
 
 struct Home: View {
     @State var expandCards: Bool = false
+    @State var currentCard: Card?
+    @State var showDetailCard: Bool = false
     var body: some View {
         VStack(spacing: 0) {
             Text("Wallet")
@@ -35,7 +37,12 @@ struct Home: View {
             ScrollView(.vertical, showsIndicators: false) {
                 VStack(spacing: 0) {
                     ForEach(cards) { card in
-                        CardView(card: card)
+                        CardView(card: card).onTapGesture {
+                            withAnimation(.easeInOut(duration: 0.35)){
+                                currentCard = card
+                                showDetailCard = true
+                            }
+                        }
                     }
                 }
                 .overlay {
@@ -50,8 +57,29 @@ struct Home: View {
             
             .coordinateSpace(name: "SCROLL")
             .offset(y: expandCards ? 30 : 0)
+            
+            Button {
+                
+            } label: {
+                Image (systemName: "plus")
+                    .font(.title)
+                    .foregroundColor(.white)
+                    .padding(20)
+                    .background(.blue, in: Circle())
+            }
+            .rotationEffect(.init(degrees: expandCards ? 180 : 0))
+            .scaleEffect(expandCards ? 0.01 : 1)
+            .opacity(!expandCards ? 1 : 0)
+            .frame(height: expandCards ? 0 : nil)
+            .padding(.bottom, expandCards ? 0 : 30)
         }
         .padding([.horizontal, .top])
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .overlay {
+            if let currentCard = currentCard, showDetailCard {
+                DetailView(currentCard: currentCard, showDetailCard: $showDetailCard)
+            }
+        }
     }
 
     @ViewBuilder
@@ -90,7 +118,10 @@ struct Home: View {
         } ?? 0
     }
 
-    func customizedCardNumber(number: String) -> String {
+    
+}
+
+func customizedCardNumber(number: String) -> String {
 
         var newValue: String = ""
         let maxCount = number.count - 4
@@ -112,10 +143,43 @@ struct Home: View {
         }
         return newValue
     }
-}
 
 struct Home_Previews: PreviewProvider {
     static var previews: some View {
         Home()
+    }
+}
+
+struct DetailView: View {
+    var currentCard: Card
+    @Binding var showDetailCard: Bool
+    var body: some View {
+        VStack {
+            CardView().frame(height: 200)
+        }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+    }
+    
+    @ViewBuilder
+    func CardView()-> some View {
+        ZStack(alignment: .bottomLeading) {
+
+            Image(currentCard.cardImage)
+                    .resizable()
+                    .scaledToFill()
+                    .shadow(color: .gray, radius: 4, x: 1, y: 1)
+                    .padding(5)
+
+            VStack(alignment: .leading, spacing: 10) {
+                Text(currentCard.name).fontWeight(.bold)
+
+                Text(customizedCardNumber(number: currentCard.cardNumber))
+                        .font(.callout)
+                        .fontWeight(.bold)
+            }
+                    .padding()
+                    .padding(.bottom, 10)
+                    .foregroundColor(.black)
+
+        }
     }
 }
