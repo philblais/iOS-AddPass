@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4F50749028C3DF0100206EE4 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4F50748F28C3DF0100206EE4 /* RealmSwift */; };
+		4F50749228C3DF3F00206EE4 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F50749128C3DF3F00206EE4 /* RealmManager.swift */; };
 		4FB50ACC28ABDF6A007D821C /* AddPassApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FB50ACB28ABDF6A007D821C /* AddPassApp.swift */; };
 		4FB50ACE28ABDF6A007D821C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FB50ACD28ABDF6A007D821C /* ContentView.swift */; };
 		4FB50AD028ABDF6B007D821C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4FB50ACF28ABDF6B007D821C /* Assets.xcassets */; };
@@ -16,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4F50749128C3DF3F00206EE4 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		4FB50AC828ABDF6A007D821C /* AddPass.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AddPass.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FB50ACB28ABDF6A007D821C /* AddPassApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPassApp.swift; sourceTree = "<group>"; };
 		4FB50ACD28ABDF6A007D821C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -30,6 +33,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F50749028C3DF0100206EE4 /* RealmSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,9 +62,9 @@
 				4FB50ADC28ABE5A4007D821C /* View */,
 				4FB50AD928ABE4BB007D821C /* Model */,
 				4FB50ACB28ABDF6A007D821C /* AddPassApp.swift */,
-				4FB50ACD28ABDF6A007D821C /* ContentView.swift */,
 				4FB50ACF28ABDF6B007D821C /* Assets.xcassets */,
 				4FB50AD128ABDF6B007D821C /* Preview Content */,
+				4F50749128C3DF3F00206EE4 /* RealmManager.swift */,
 			);
 			path = AddPass;
 			sourceTree = "<group>";
@@ -84,6 +88,7 @@
 		4FB50ADC28ABE5A4007D821C /* View */ = {
 			isa = PBXGroup;
 			children = (
+				4FB50ACD28ABDF6A007D821C /* ContentView.swift */,
 				4FB50ADD28ABE5B4007D821C /* Home.swift */,
 			);
 			path = View;
@@ -105,6 +110,9 @@
 			dependencies = (
 			);
 			name = AddPass;
+			packageProductDependencies = (
+				4F50748F28C3DF0100206EE4 /* RealmSwift */,
+			);
 			productName = AddPass;
 			productReference = 4FB50AC828ABDF6A007D821C /* AddPass.app */;
 			productType = "com.apple.product-type.application";
@@ -133,6 +141,9 @@
 				Base,
 			);
 			mainGroup = 4FB50ABF28ABDF6A007D821C;
+			packageReferences = (
+				4F50748E28C3DF0100206EE4 /* XCRemoteSwiftPackageReference "realm-swift" */,
+			);
 			productRefGroup = 4FB50AC928ABDF6A007D821C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -161,6 +172,7 @@
 			files = (
 				4FB50ACE28ABDF6A007D821C /* ContentView.swift in Sources */,
 				4FB50ADB28ABE4CF007D821C /* Card.swift in Sources */,
+				4F50749228C3DF3F00206EE4 /* RealmManager.swift in Sources */,
 				4FB50ADE28ABE5B4007D821C /* Home.swift in Sources */,
 				4FB50ACC28ABDF6A007D821C /* AddPassApp.swift in Sources */,
 			);
@@ -363,6 +375,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4F50748E28C3DF0100206EE4 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4F50748F28C3DF0100206EE4 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4F50748E28C3DF0100206EE4 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 4FB50AC028ABDF6A007D821C /* Project object */;
 }
