@@ -124,8 +124,8 @@ struct Home: View {
     }
 
     func getIndex(Card: Card) -> Int {
-        return cards.firstIndex { currentCard in
-            return currentCard.id == Card.id
+        cards.firstIndex { currentCard in
+            currentCard.id == Card.id
         } ?? 0
     }
 
