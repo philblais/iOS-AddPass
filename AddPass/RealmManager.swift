@@ -53,6 +53,13 @@ class RealmManager: ObservableObject {
             }
         }
     }
+    
+    func getCardsCount() -> Int{
+        if let localRealm = localRealm {
+            return localRealm.objects(Card.self).count
+        }
+        return 0
+    }
 
     func updateCard(id: ObjectId){
         if let localRealm = localRealm {

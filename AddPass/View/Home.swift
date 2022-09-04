@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct Home: View {
+    @StateObject var realmManager = RealmManager()
     @State var expandCards: Bool = false
     @State var currentCard: Card?
     @State var showDetailCard: Bool = false
@@ -29,11 +30,10 @@ struct Home: View {
                                 .foregroundColor(.white)
                                 .padding(10)
                                 .background(.blue, in: Circle())
-
                     }
-                            .rotationEffect(.init(degrees: expandCards ? 45 : 0))
-                            .offset(x: expandCards ? 10 : 15)
-                            .opacity(expandCards ? 1 : 0)
+                    .rotationEffect(.init(degrees: expandCards ? 45 : 0))
+                    .offset(x: expandCards ? 10 : 15)
+                    .opacity(expandCards ? 1 : 0)
                 }.padding(.horizontal, 15)
             ScrollView(.vertical, showsIndicators: false) {
                 VStack(spacing: 0) {
@@ -44,6 +44,7 @@ struct Home: View {
                             }
                             else {
                                 CardView(card: card)
+                                    .environmentObject(realmManager)
                                     .matchedGeometryEffect(id: card.id, in: animation)
                             }
                         }
@@ -70,7 +71,11 @@ struct Home: View {
             .offset(y: expandCards ? 30 : 0)
             
             Button {
-                
+                let count = realmManager.getCardsCount()
+                let title = "Card number: \(count)"
+                print("Title \(title) count \(count)")
+                realmManager.addCard(title: title, cardNumber: "1234 1234 1234", cardImage: "default-card")
+                realmManager.getCards()
             } label: {
                 Image (systemName: "plus")
                     .font(.title)
@@ -107,7 +112,7 @@ struct Home: View {
                         .padding(5)
 
                 VStack(alignment: .leading, spacing: 10) {
-                    Text(card.name).fontWeight(.bold)
+                    Text(card.title).fontWeight(.bold)
 
                     Text(customizedCardNumber(number: card.cardNumber))
                             .font(.callout)
@@ -162,6 +167,7 @@ struct Home_Previews: PreviewProvider {
 }
 
 struct DetailView: View {
+    @EnvironmentObject var realmManager: RealmManager
     var currentCard: Card
     @Binding var showDetailCard: Bool
     
@@ -220,7 +226,7 @@ struct DetailView: View {
                     .padding(5)
 
             VStack(alignment: .leading, spacing: 10) {
-                Text(currentCard.name).fontWeight(.bold)
+                Text(currentCard.title).fontWeight(.bold)
 
                 Text(customizedCardNumber(number: currentCard.cardNumber))
                         .font(.callout)
